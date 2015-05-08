@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1"><!--Se reajuste la pagina al tamaño de la pantalla del disposiyivo-->
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.4/jquery.mobile-1.4.4.min.css">
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.4.4/jquery.mobile-1.4.4.min.js"></script>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <style>
+            th {
+                border: 1px solid #000;
+                background: #3181E8;
+            }
+            tr:nth-child(even) {
+                background: rgba(0, 106, 255, 0.32);
+                border: 1px solid #000;
+            }
+            tr {
+                border: 1px solid #000;
+            }
+        </style>
+        <title>App WorkFlow</title>
+    </head>
+    <body>
+        <div data-role="page" id="pageone"> <!--inicio Cuerpo -->
+  			<div data-role="header" id="upcolor" > <!-- inicio encabezado -->
+                <a href='index.html' rel="external" class="ui-btn ui-btn-inline ui-icon-grid ui-btn-icon-right ui-btn-icon-notext  ui-shadow ui-corner-all" data-transition="flip" style="background-color: #09ae17">Colores</a><div align="right"><img src="http://www.empowerlabs.com/intellibanks/pub/TWiki/TWikiLogos/T-logo-140x40-t.gif"/></div>
+                  <center>Módulo de Contactos</center>
+  			</div> <!-- Fin encabezado -->
+	 		<div data-role="main" class="ui-content"> <!-- inicio cuerpo -->
+                 <script>
+                    window.onload = function() {
+                        document.querySelector('input[name="seleccioncolor"]').addEventListener('change',function(){
+	                        document.querySelector('#capa').style.background= this.value;
+                             document.querySelector('#capa1').style.background= this.value;
+	        	        });
+                    }
+                </script>
+		        <input id="filterTable-input" data-type="search" placeholder="Buscar registro...">
+                <table data-role="table" class="ui-responsive ui-shadow" id="myTable" data-filter="true" data-input="#filterTable-input" data-mode="reflow"> 
+ 				<thead >
+                <tr>
+                    <th data-priority="1">Clave</th>
+                    <th data-priority="1">Nombre</th>
+					<th data-priority="2">Empresa</th>
+                    <th data-priority="3">Celular</th>
+                    <th data-priority="4">Email</th>
+                </tr>
+				</thead>
+                <tbody>
+				<script type="text/javascript">
+var url = 'http://www.empowerlabs.com/intellibanks/data/Sandbox/JSonContactos.php';
+$.ajax({
+    type:"POST",
+    url:url,
+    success:function(result){
+	
+			var $tabla = $("#myTable");
+    	    $tabla.find("tr:gt(0)").remove();
+           for (var idx in result)
+			{
+				alum = result[idx];
+				$tabla.append(
+					"<tr><td>"+alum.Greeting+"</td><td>"+alum.Name+"</td><td>" + alum.Account + "</td><td>" + alum.Mobile +"</td><td>" + alum.Email +"</td></tr>"); 
+			} 
+		   
+             }
+    }); 
+</script>
+				</tbody>
+</table>
+  			</div> <!-- Fin cuerpo -->
+		</div> <!-- Fin Cuerpo -->
+    </body>
+</html>

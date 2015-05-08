@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1"><!--Se reajuste la pagina al tamaño de la pantalla del disposiyivo-->
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.4/jquery.mobile-1.4.4.min.css">
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.4.4/jquery.mobile-1.4.4.min.js"></script>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <style>
+            th {
+                border: 1px solid #000;
+                background: #3181E8;
+            }
+            tr:nth-child(even) {
+                background: rgba(0, 106, 255, 0.32);
+                border: 1px solid #000;
+            }
+            tr {
+                border: 1px solid #000;
+            }
+        </style>
+        <title>App WorkFlow</title>
+
+       
+
+    </head>
+    <body>
+        <div data-role="page" id="pageone"> <!--inicio Cuerpo -->
+  			<div data-role="header" id="upcolor" style="background-color: #2371AF"> <!-- inicio encabezado -->
+                <a href='index.html' rel="external" class="ui-btn ui-icon-bars ui-btn-icon-left ui-btn-icon-notext  ui-shadow ui-corner-all" data-transition="flip" style="background-color: #2371AF">Colores</a><h1>Módulo Contactos</h1><a href='#pagetwo' rel="external" class="ui-btn ui-icon-plus ui-btn-icon-left ui-btn-icon-notext  ui-shadow ui-corner-all" data-transition="flip" style="background-color: #2371AF">Agregar</a>
+  			</div> <!-- Fin encabezado -->
+	 		<div data-role="main" class="ui-content"> <!-- inicio cuerpo -->
+                 
+                
+                    <script>
+                           
+                    </script>
+
+                 <table data-role="table" class="ui-responsive ui-shadow" id="myTable" data-filter="true" data-input="#filterTable-input" data-mode="reflow"> 
+ 				
+                 <script type="text/javascript">
+                     var URLactual = window.location;
+                     var nuevo = "http://www.empowerlabs.com/archivos/Jovy/ViewPipeline.php?nombre="+URLactual;
+                     var url = 'http://www.empowerlabs.com/intellibanks/data/Sandbox/ViewContactos.php?nombre='+URLactual;
+                     $.ajax({
+                         type: "POST",
+                         url: url,
+                         success: function (result) {
+                             var $tabla = $("#myTable");
+                             $tabla.find("tr:gt(0)").remove();
+                             for (var idx in result) {
+                                 alum = result[idx];
+                                  $tabla.append(
+					             "<tr><td style=' background-color: #2371AF; color: #fff'>  <center>"+alum.Greeting+" "+alum.Name+"</center></td></tr>"+"<tr><td><b>Empresa:</b> " + alum.Title +" </td></tr><tr><td><b>Telefono:</b> " + alum.Phone +" </td></tr><tr><td><b>Celular:</b> " + alum.Mobile +" </td></tr><tr><td><b>Fax:</b> " + alum.FAX+" </td></tr><tr><td><b>Correo:</b> " + alum.Email +" </td></tr><tr><td><b>Skype:</b> " + alum.Skype +" </td></tr><tr><td><b>Estatus:</b> " + alum.Status +" </td></tr><tr><td><b>Tipo:</b> " + alum.Type +" </td></tr>");
+			            } 
+                         }
+                    }); 
+                </script>
+                </table>
+  			</div> <!-- Fin cuerpo -->
+		</div> <!-- Fin Cuerpo -->
+    </body>
+</html>

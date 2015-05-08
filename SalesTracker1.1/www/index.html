@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1"><!--Se reajuste la pagina al tamaño de la pantalla del disposiyivo-->
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.4/jquery.mobile-1.4.4.min.css">
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.4.4/jquery.mobile-1.4.4.min.js"></script>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <title>App WorkFlow</title>
+        <style>
+            th {
+                border: 1px solid #000;
+                background: #3181E8;
+            }
+            tr:nth-child(even) {
+                background: rgba(0, 106, 255, 0.32);
+                border: 1px solid #000;
+            }
+            tr {
+                border: 1px solid #000;
+            }
+        </style>
+    </head>
+    <body>
+        <div data-role="page" id="pageone"> <!--inicio Cuerpo -->
+  			<div data-role="header" id="upcolor" style="background-color: #2371AF"> <!-- inicio encabezado -->
+                <a href='#pagetwo' rel="external" class="ui-btn ui-icon-bars ui-btn-icon-left ui-btn-icon-notext  ui-shadow ui-corner-all" data-transition="flip" style="background-color: #2371AF">Colores</a><div align="right" style="height:40px"></div>
+  			</div> <!-- Fin encabezado -->
+	 		<div data-role="main" class="ui-content"> <!-- inicio cuerpo -->
+                 <a href='#pagecuentas' rel="external" class="ui-btn ui-icon-arrow-r ui-btn-icon-right ui-corner-all" style="background-color: #3181E8;">Cuentas</a>
+                 <a href='#pagecontacto'rel="external" class="ui-btn ui-icon-arrow-r ui-btn-icon-right ui-corner-all" style="background-color: #3181E8">Contactos</a>
+                 <a href='#pagepipeline' rel="external" class="ui-btn ui-icon-arrow-r ui-btn-icon-right ui-corner-all" style="background-color: #3181E8">Pipeline</a>
+                 
+  			</div> <!-- Fin cuerpo -->
+		</div> <!-- Fin Cuerpo -->
+        <div data-role="page" id="pagepipeline"> <!--inicio Cuerpo pipeline-->
+  			<div data-role="header" style="background-color: #2371AF"> <!-- inicio encabezado -->
+                <a href='#pageone' rel="external" class="ui-btn ui-icon-bars ui-btn-icon-left ui-btn-icon-notext  ui-shadow ui-corner-all" data-transition="flip" style="background-color: #2371AF">Colores</a><h1>Sales Tracker</h1><a href='#pagetwo' rel="external" class="ui-btn ui-icon-plus ui-btn-icon-left ui-btn-icon-notext  ui-shadow ui-corner-all" data-transition="flip" style="background-color: #2371AF">Agregar</a>
+  			</div> <!-- Fin encabezado -->
+	 		<div data-role="main" class="ui-content"> <!-- inicio cuerpo -->
+                <input id="filterTable-input" data-type="search" placeholder="Buscar registro...">
+                <table data-role="table" class="ui-responsive ui-shadow" id="myTable" data-filter="true" data-input="#filterTable-input" data-mode="reflow"> 
+ 				<thead >
+                   <th></th>
+				</thead>
+                <tbody>
+				<script type="text/javascript">
+                    var url = 'http://www.empowerlabs.com/intellibanks/data/Sandbox/JSonPipeline.php';
+                    $.ajax({
+                    type:"POST",
+                    url:url,
+                    success:function(result){
+				        var $tabla = $("#myTable");
+    	                $tabla.find("tr:gt(0)").remove();
+                        for (var idx in result)
+			            {
+				            alum = result[idx];
+				            $tabla.append(
+					            "<tr><td style=' background-color: #2371AF;'> <a href='ViewPipeline.html?"+alum.Var+".txt' rel='external' style=' color: #000000'><center>"+alum.Var+"</center></a>    "+"</td></tr><tr><td>"+alum.Stage+"</td></tr><tr><td>" + alum.Description + "</td></tr>"); 
+			            } 
+		   
+                         }
+                    }); 
+                </script>
+				</tbody>
+                </table>
+  			</div> <!-- Fin cuerpo -->
+		</div> <!-- Fin Cuerpo pipeline-->
+        <div data-role="page" id="pagecuentas"> <!--inicio Cuerpo Cuentas -->
+  			<div data-role="header"  style="background-color: #2371AF"> <!-- inicio encabezado -->
+                <a href='#pageone' rel="external" class="ui-btn ui-icon-bars ui-btn-icon-left ui-btn-icon-notext  ui-shadow ui-corner-all" data-transition="flip" style="background-color: #2371AF">Colores</a><h1>Módulo Cuentas</h1><a href='#pagetwo' rel="external" class="ui-btn ui-icon-plus ui-btn-icon-left ui-btn-icon-notext  ui-shadow ui-corner-all" data-transition="flip" style="background-color: #2371AF">Agregar</a>
+  			</div> <!-- Fin encabezado -->
+	 		<div data-role="main" class="ui-content"> <!-- inicio cuerpo -->
+                 <script>
+                    window.onload = function() {
+                        document.querySelector('input[name="seleccioncolor"]').addEventListener('change',function(){
+	                        document.querySelector('#capa').style.background= this.value;
+                             document.querySelector('#capa1').style.background= this.value;
+	        	        });
+                    }
+                </script>
+		        <input id="filterTable-inputCta" data-type="search" placeholder="Buscar registro...">
+                <table data-role="table" class="ui-responsive ui-shadow" id="myTableCta" data-filter="true" data-input="#filterTable-inputCta" data-mode="reflow"> 
+ 				<thead >
+                <tr>
+                </tr>
+				</thead>
+                <tbody>
+				<script type="text/javascript">
+var url = 'http://www.empowerlabs.com/intellibanks/data/Sandbox/JSonCuentas.php';
+$.ajax({
+    type:"POST",
+    url:url,
+    success:function(result){
+	
+			var $tabla = $("#myTableCta");
+    	    $tabla.find("tr:gt(0)").remove();
+           for (var idx in result)
+			{
+				alum = result[idx];
+				$tabla.append(
+					"<tr><td style=' background-color: #2371AF;'> <a href='ViewCuentas.html?"+alum.Cuentas+"' rel='external'style=' color: #000000'><center>"+alum.Name+"</center></a></td></tr><tr><td>" + alum.City +"</td></tr><tr><td>" + alum.State +"</td></tr>"); 
+			} 
+		   
+             }
+    }); 
+</script>
+				</tbody>
+</table>
+  			</div> <!-- Fin cuerpo -->
+		</div> <!-- Fin Cuerpo Cuentas-->
+        <div data-role="page" id="pagecontacto"> <!--inicio Cuerpo contacto-->
+  			<div data-role="header" id="upcolor" style="background-color: #2371AF"> <!-- inicio encabezado -->
+                <a href='#pageone' rel="external" class="ui-btn ui-icon-bars ui-btn-icon-left ui-btn-icon-notext  ui-shadow ui-corner-all" data-transition="flip" style="background-color: #2371AF">Colores</a><h1>Módulo Contactos</h1><a href='#pagetwo' rel="external" class="ui-btn ui-icon-plus ui-btn-icon-left ui-btn-icon-notext  ui-shadow ui-corner-all" data-transition="flip" style="background-color: #2371AF">Agregar</a>
+  			</div> <!-- Fin encabezado -->
+	 		<div data-role="main" class="ui-content"> <!-- inicio cuerpo -->
+                 <script>
+                    window.onload = function() {
+                        document.querySelector('input[name="seleccioncolor"]').addEventListener('change',function(){
+	                        document.querySelector('#capa').style.background= this.value;
+                             document.querySelector('#capa1').style.background= this.value;
+	        	        });
+                    }
+                </script>
+		        <input id="filterTable-inputCto" data-type="search" placeholder="Buscar registro...">
+                <table data-role="table" class="ui-responsive ui-shadow" id="myTableCto" data-filter="true" data-input="#filterTable-inputCto" data-mode="reflow"> 
+ 				<thead >
+                <tr>
+                </tr>
+				</thead>
+                <tbody>
+				<script type="text/javascript">
+var url = 'http://www.empowerlabs.com/intellibanks/data/Sandbox/JSonContactos.php';
+$.ajax({
+    type:"POST",
+    url:url,
+    success:function(result){
+	
+			var $tabla = $("#myTableCto");
+    	    $tabla.find("tr:gt(0)").remove();
+           for (var idx in result)
+			{
+				alum = result[idx];
+				$tabla.append(
+					"<tr><td style=' background-color: #2371AF;'> <a href='ViewContactos.html?"+alum.Contactos+"' rel='external' style=' color: #000000'><center>"+alum.Greeting+" "+alum.Name+"</center></a></td></tr><tr><td>" + alum.Title + "</td></tr><tr><td>" + alum.Mobile +"</td></tr><tr><td>" + alum.Type +"</td></tr>"); 
+			} 
+		   
+             }
+    }); 
+</script>
+				</tbody>
+</table>
+  			</div> <!-- Fin cuerpo -->
+		</div> <!-- Fin Cuerpo contacto-->
+        <div data-role="page" id="pageview"> <!--inicio Cuerpo Ver-->
+  			<div data-role="header"  style="background-color: #2371AF"> <!-- inicio encabezado -->
+                <a href='#pagetwo' rel="external" class="ui-btn ui-icon-bars ui-btn-icon-left ui-btn-icon-notext  ui-shadow ui-corner-all" data-transition="flip" style="background-color: #2371AF">Colores</a><div align="right" style="height:40px"></div>
+  			</div> <!-- Fin encabezado -->
+	 		<div data-role="main" class="ui-content"> <!-- inicio cuerpo -->
+                 <form action="Contactos.html" method="post">
+                    <input type="text" value="" name="hola"/>
+                    <input type="submit" value="Enviar" />
+                 </form>
+  			</div> <!-- Fin cuerpo -->
+		</div> <!-- Fin Cuerpo Ver-->
+    </body>
+</html>
